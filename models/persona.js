@@ -7,7 +7,8 @@ var PersonaSchema = Schema({
     apellido: String,
     nombre: String,
     area: String,
-    carrera: String    
+    carrera: String,
+    foto: String
 }, false);
 
 module.exports = mongoose.model("Persona", PersonaSchema);

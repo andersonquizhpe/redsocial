@@ -12,7 +12,7 @@ var usersRouter = require('./routes/users');
 var passport= require('passport');
 var app = express();
 
-require('./config/passport');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -24,10 +24,6 @@ app.use(session({
   resave: true
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(flash());
 app.use(multer({dest: path.join(__dirname, 'public/upload/temp')}).single('file'));
 
 app.use(logger('dev'));
@@ -35,6 +31,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

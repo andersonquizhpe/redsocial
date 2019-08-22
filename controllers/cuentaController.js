@@ -103,7 +103,7 @@ class cuentaController {
                 //req.flash('error', 'Usuario no encontrado.');
                 res.redirect('/verificar');
             }else{
-                user.active = true;
+                user.activo = true;
                 user.secretToken= '';
                 user.save();
                 //req.flash('info', 'Se ha verificado tu cuenta. Ahora puedes inicar sesion');
