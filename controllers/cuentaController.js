@@ -10,6 +10,16 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var md5 = require('md5');
 
 class cuentaController {
+    /**
+     * 
+     * @api {post} /registro/save Permite guardar el nuevo usuario
+     * @apiName signUp
+     * @apiGroup cuentaController
+     *
+     * @apiParam {req} req el objeto de peticion
+     * @apiParam {res} res Devuelve la pagina para iniciar sesion y envia enlace de verificacion al correo 
+     * 
+     */
     signUp(req, res) {
         Cuenta.findOne({ 'correo': req.body.correo }, (err, person) => {
             if (err) {
@@ -92,7 +102,16 @@ class cuentaController {
             }
         });
     }
-    
+    /**
+     * 
+     * @api {get} /verificar/update/:token Verifica tu cuenta a traves de un enlace
+     * @apiName verificarCuenta
+     * @apiGroup cuentaController
+     *
+     * @apiParam {req} token token secreto para activar la cuenta
+     * @apiParam {res} res Devuelve la pagina para iniciar sesion
+     * 
+     */
     verificarCuenta(req, res) {
         Cuenta.findOne({'secretToken': req.params.token}, (err, user)=>{
             console.log(user);

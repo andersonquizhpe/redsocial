@@ -9,7 +9,16 @@ var Publicacion = require('../models/publicacion');
 var Comentario = require('../models/comentario');
 
 class PublicacionController {
-    
+    /**
+     * 
+     * @api {post} /publicar Permite guardar la publicacion
+     * @apiName guardar
+     * @apiGroup PublicacionController
+     *
+     * @apiParam {req} req el objeto de peticion
+     * @apiParam {res} res Devuelve la pagina y lista de publicaciones realizadas 
+     * 
+     */
     guardar(req, res) {
 
 		new Publicacion({
@@ -30,7 +39,16 @@ class PublicacionController {
                     
         });
     }
-    
+    /**
+     * 
+     * @api {post} /publicarFile Permite subir archivos
+     * @apiName guardarFile
+     * @apiGroup PublicacionController
+     *
+     * @apiParam {req} req el objeto de peticion
+     * @apiParam {res} res Devuelve la pagina y lista de archivos subidos 
+     * 
+     */
     guardarFile(req, res) {
 		
 		var imgUrl = uuidv4();
@@ -58,16 +76,33 @@ class PublicacionController {
                     
         });
     }
-    
+    /**
+     * 
+     * @api {get} /principal Visualizacion de todos las publicaciones y archivos subidos
+     * @apiName visualizar
+     * @apiGroup PublicacionController
+     *
+     * @apiParam {req} req el objeto de peticion
+     * @apiParam {res} res Devuelve la pagina y lista de publicaciones y archivos subidos
+     * 
+     */
     visualizar(req, res) {
 		
 		Publicacion.find({}, (error, publish) => {
 			res.render('main', {publish, title: 'Uneleate', msg: {error: req.flash('error'), info: req.flash('info')}});
 		}).sort({ timestamp: -1 });
     }
-    
+    /**
+     * 
+     * @api {get} /publicacion/:external Visualizacion personalizada de cada publicacion o archivo subido
+     * @apiName verPublicacion
+     * @apiGroup PublicacionController
+     *
+     * @apiParam {req} req el objeto de peticion
+     * @apiParam {res} res Devuelve la pagina y la publicacion a la cual queremos acceder
+     * 
+     */
     verPublicacion(req, res) {
-
 		Publicacion.findOne({external_id: req.params.external}, (error, publish) => {
 			if(publish){
 				publish.views = publish.views + 1;
@@ -95,7 +130,17 @@ class PublicacionController {
 				res.redirect('/principal');
 			}
     };*/
-    
+	
+	/**
+     * 
+     * @api {post} /like/:external El usuario puede dar like a las publicaciones que ha subido
+     * @apiName like
+     * @apiGroup PublicacionController
+     *
+     * @apiParam {req} req el objeto de peticion
+     * @apiParam {res} res Devuelve la pagina y el like dado por el usuario
+     * 
+     */
     like(req, res) {
 		Publicacion.findOne({id: req.body.external}, function (err, publish){
 		  publish.likes = publish.likes + 1;

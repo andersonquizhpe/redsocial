@@ -1,26 +1,36 @@
 'use strict';
 class Roots {
-    /**
-     * @api {get} /login Interfaz de inicio sesion
-     * @apiName getLogin
-     * @apiGroup CuentaController
-     *
-     * @apiParam {req} req el objeto de peticion
-     * @apiParam {res} res Devuelve la pagina para ingresar 
-     * 
-     */
+    
      getMsj(req, res) {
         res.render('fragmentos/mensajes', {
             partial: 'mensajes'
             //error: req.flash("err_cred")
         });
     }
+    /**
+     * @api {get} /login Interfaz de inicio sesion
+     * @apiName getLogin
+     * @apiGroup Roots
+     *
+     * @apiParam {req} req el objeto de peticion
+     * @apiParam {res} res Devuelve la pagina para ingresar 
+     * 
+     */
     getLogin(req, res) {
         res.render('fragmentos/login', {
             title: 'Universidad Nacional de Loja'
             //error: req.flash("err_cred")
         });
     }
+    /**
+     * @api {get} /registro Interfaz de registro
+     * @apiName getReg
+     * @apiGroup Roots
+     *
+     * @apiParam {req} req el objeto de peticion
+     * @apiParam {res} res Devuelve la pagina para ingresar 
+     * 
+     */
     getReg(req, res) {
         res.render('fragmentos/registro', {
             title: 'Universidad Nacional de Loja'
@@ -29,6 +39,16 @@ class Roots {
     }
     //PROVISIONALES
     //USER TEMPLATES
+    /**
+     * 
+     * @api {get} /perfil El usuario puede ver su perfil
+     * @apiName perfil
+     * @apiGroup Roots
+     *
+     * @apiParam {req} req el objeto de peticion
+     * @apiParam {res} res Devuelve la pagina 
+     * 
+     */
     perfil(req, res) {
         res.render('usuario/perfil', {
             title: "Perfil"
@@ -63,15 +83,7 @@ class Roots {
             //error: req.flash("err_cred")
         });
     }
-    /**
-     * @api {get} / Interfaz principal
-     * @apiName getPrincipal
-     * @apiGroup CuentaController
-     *
-     * @apiParam {req} req el objeto de peticion
-     * @apiParam {res} res Devuelve la pagina principal de la aplicacion
-     * 
-     */
+
     getPrincipal(req, res) {
         res.render('index', {
             title: 'Universidad Nacional de Loja',
