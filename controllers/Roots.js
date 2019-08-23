@@ -95,7 +95,7 @@ class Roots {
     /**
      * @api {get} /cerrar Cierra la sesion
      * @apiName cerrar
-     * @apiGroup CuentaController
+     * @apiGroup cuentaController
      *
      * @apiParam {req} req es la sesion a destruir
      * @apiParam {res} res el objeto de respuetas

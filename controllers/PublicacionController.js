@@ -78,7 +78,7 @@ class PublicacionController {
     }
     /**
      * 
-     * @api {get} /principal Visualizacion de todos las publicaciones y archivos subidos
+     * @api {get} /principal Visualizacion de las publicaciones
      * @apiName visualizar
      * @apiGroup PublicacionController
      *
@@ -94,7 +94,7 @@ class PublicacionController {
     }
     /**
      * 
-     * @api {get} /publicacion/:external Visualizacion personalizada de cada publicacion o archivo subido
+     * @api {get} /publicacion/:external Visualizacion personalizada de cada publicacion
      * @apiName verPublicacion
      * @apiGroup PublicacionController
      *
@@ -133,7 +133,7 @@ class PublicacionController {
 	
 	/**
      * 
-     * @api {post} /like/:external El usuario puede dar like a las publicaciones que ha subido
+     * @api {post} /like/:external Dar like a las publicaciones
      * @apiName like
      * @apiGroup PublicacionController
      *
