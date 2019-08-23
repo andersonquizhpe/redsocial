@@ -8,7 +8,14 @@ block content
 
   .col-md-7.mr-auto.ml-auto.card.wizard-card.bg-dark
    .card-body
-        form(action='/publicar', method='POST')       
+        form(action='/publicar', method='POST')
+          if typeof msg != 'undefined'
+            if typeof msg.error != 'undefined' && msg.error.length > 0
+              .form-group
+                .alert.alert-danger(style="font-size: 15px;") #{msg.error}
+            if typeof msg.info != 'undefined' && msg.info.length > 0
+              .form-group
+                .alert.alert-info(style="font-size: 15px;") #{msg.info}
           .form-group
             textarea.form-control.h4.text-white(name='publicacion',style="margin-left: 0%; margin-bottom: 0%;margin-top: 0%", rows='2', placeholder='¿Algo nuevo?, publícalo', required='')
           .form-group( style="margin-left: 0%; margin-bottom: 0%")
