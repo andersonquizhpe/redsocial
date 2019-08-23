@@ -11,11 +11,11 @@ var md5 = require('md5');
 
 class cuentaController {
     signUp(req, res) {
-        Persona.findOne({ 'correo': req.body.correo }, (err, person) => {
+        Cuenta.findOne({ 'correo': req.body.correo }, (err, person) => {
             if (err) {
-                res.redirect('/registro');
+                res.redirect('/');
             } else if (person) {
-                req.flash('error', 'El correo ya fue usado con anterioridad')
+                //req.flash('error', 'El correo ya fue usado con anterioridad')
                 res.redirect('/registro');
             } else {
                 //const hash = Cuenta.hashPassword(req.body.clave);
@@ -55,12 +55,11 @@ class cuentaController {
                                 <br/>
                                 Gracias por registrarte!
                                 <br/><br/>
-                                Por favor para verificar tu cuenta escribe o copia el siguiente codigo:
+                                Por favor para verificar tu cuenta para iniciar sesion:
                                 <br/>
-                                Codigo: <b>${secretToken}</b>
                                 <br/>
                                 En el siguiente link:
-                                <a href="http://localhost:3000/verificar">Verificar</a>
+                                <a href="http://localhost:3000/verificar/update/${secretToken}">Verificar</a>
                                 <br/><br/>
                                 Ten un grandioso dia.`;
                                 let transporte = nodemailer.createTransport(smtpTransport({
@@ -83,7 +82,7 @@ class cuentaController {
                                         console.log(err);
                                     } else {
                                         console.log('mensaje enviado con exito');
-                                        res.redirect('/verificar');
+                                        res.redirect('/login');
                                     }
                                 });
                             }
@@ -93,18 +92,13 @@ class cuentaController {
             }
         });
     }
-    getVerification(req, res){
-        res.render('fragmentos/verificar', {
-            title: 'Universidad Nacional de Loja'
-            //error: req.flash("err_cred")
-        });
-    }
+    
     verificarCuenta(req, res) {
-        Cuenta.findOne({'secretToken': req.body.token}, (err, user)=>{
+        Cuenta.findOne({'secretToken': req.params.token}, (err, user)=>{
             console.log(user);
             if(!user){
                 //req.flash('error', 'Usuario no encontrado.');
-                res.redirect('/verificar');
+                res.redirect('/registro');
             }else{
                 user.activo = true;
                 user.secretToken= '';
