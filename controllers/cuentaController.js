@@ -33,6 +33,9 @@ class cuentaController {
                         res.redirect('/registro');
                         console.log(err);
                     } else if (newP) {
+                        const newPersona=  newP;
+                        newPersona.foto = md5(newPersona.nombre);
+                        newPersona.save();
                         console.log(newP);
                         new Cuenta({
                             id: new mongoose.Types.ObjectId(),
