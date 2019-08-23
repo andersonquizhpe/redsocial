@@ -21,9 +21,11 @@ class PublicacionController {
         }).save(function (err, newPublicacion) {
              
             if(err) {
-				res.send(err);
+		    req.flash('error', 'No se pudo subir su publicacion!');
+		    res.send(err);
             }else if(newPublicacion) {
-			    res.redirect('/principal');           
+		    req.flash('info', 'Publicacion subida exitosamente!');
+	            res.redirect('/principal');           
 			}
                     
         });
@@ -60,7 +62,7 @@ class PublicacionController {
     visualizar(req, res) {
 		
 		Publicacion.find({}, (error, publish) => {
-			res.render('main', {publish, title: 'Uneleate'});
+			res.render('main', {publish, title: 'Uneleate', msg: {error: req.flash('error'), info: req.flash('info')}});
 		}).sort({ timestamp: -1 });
     }
     
