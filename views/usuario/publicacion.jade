@@ -2,13 +2,11 @@ extends ../layout
 
 block content
   if publish.ext
-   .card
-    .card-header.d-flex.justify-content-between.align-items-center
-        h2 #{publish.title}    
-        button#btn-delete.btn.btn-danger(data-id='#{publish.external_id}')
-          i.fa.fa-times
-          span  Eliminar
-      .card-body
+   .card.col-md-10.ml-auto.mr-auto
+    .h2.text-center #{publish.title}
+    .card-body.col-md-9.ml-auto.mr-auto
+      h3.mr-auto.ml-auto(style="margin-left: 4%;") #{publish.description}
+    .card-body
            
         .text-center
           // img.img-fluid(src='/upload/#{publish.filename}')
@@ -18,82 +16,81 @@ block content
             case extension
             
               when '.png'
-                img.img-fluid(src="/upload/#{publish.filename}")
+                img.img-fluid.card-body.col-md-8(src="/upload/#{publish.filename}")
               when '.jpg'
-                img.img-fluid(src="/upload/#{publish.filename}", style="width: 80%;")
+                img.img-fluid.card-body.col-md-8(src="/upload/#{publish.filename}", style="width: 80%;")
               when '.jpeg'
-                img.img-fluid(src="/upload/#{publish.filename}")
+                img.img-fluid.card-body.col-md-8(src="/upload/#{publish.filename}")
               when '.gif'
-                img.img-fluid(src="/upload/#{publish.filename}")
-                
+                img.img-fluid.card-body.col-md-8(src="/upload/#{publish.filename}")
               when '.mp4'
-                video(src="/upload/#{publish.filename}", controls, muted, style="width: 100%", autoplay)
+                video.card-body.col-md-8(src="/upload/#{publish.filename}", controls, muted, style="width: 100%", autoplay)
               when '.webm'
-                video(src="/upload/#{publish.filename}", controls, muted, style="width: 100%", autoplay)
+                video.card-body.col-md-8(src="/upload/#{publish.filename}", controls, muted, style="width: 100%", autoplay)
               when '.ogv'
-                video(src="/upload/#{publish.filename}", controls, muted, width="100%", autoplay)
-
+                video.card-body.col-md-8(src="/upload/#{publish.filename}", controls, muted, width="100%", autoplay)
               when '.mp3'
-                video(src="/upload/#{publish.filename}", controls, width="100%", poster="/images/mp3.jpg")
+                video.card-body.col-md-8(style="margin-top:-21%",src="/upload/#{publish.filename}", controls, width="100%", poster="/images/mp3.jpg")
               when '.ogg'
-                video(src="/upload/#{publish.filename}", controls, width="100%", poster="/images/ogg.jpg")
-
+                video.card-body.col-md-8(src="/upload/#{publish.filename}", controls, width="100%", poster="/images/ogg.jpg")
               when '.pdf'
                 a(href="/upload/#{publish.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{publish.filename}")
-                  p Download #{publish.filename}
-       
+                  p Descargar #{publish.filename}
               when '.txt'
                 a(href="/upload/#{publish.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{publish.filename}")
-                  p Download #{publish.filename}
+                  p Descargar #{publish.filename}
               when '.odt'
                 a(href="/upload/#{publish.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{publish.filename}")
-                  p Download #{publish.filename}
+                  p Descargar #{publish.filename}
               when '.docx'
                 a(href="/upload/#{publish.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{publish.filename}")
-                  p Download #{publish.filename}
+                  p Descargar #{publish.filename}
               when '.doc'
                 a(href="/upload/#{publish.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{publish.filename}")
-                  p Download #{publish.filename}
+                  p Descargar #{publish.filename}
               when '.3gp'
                 a(href="/upload/#{publish.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{publish.filename}")
-                  p Download #{publish.filename}
+                  p Descargar #{publish.filename}
               when '.zip'
                 a(href="/upload/#{publish.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{publish.filename}")
-                  p Download Archivo
+                  p Descargar Archivo
            
-      .card-footer.d-flex.justify-content-between.align-items-center
-        button#btn-like.btn.btn-success(data-id='#{publish.external_id}')
+       .form-group.text-center
+        button#btn-delete.btn.btn-danger.mr-auto(style="margin-left:-3%",data-id='#{publish.external_id}')
+          |  Eliminar
+        button#btn-like.btn.btn-success.ml-auto(style="margin-rigth:99%",data-id='#{publish.external_id}')
           i.fas.fa-thumbs-up
-          |  Me gusta   
-        p
+          |  Me gusta 
+      .card-footer.d-flex.justify-content-between.align-items-center
+        p(style="margin-left:0%")
           span.likes-count #{publish.likes}   
           i.fas.fa-heart     
-        p
+        p(style="margin-left:10%")
           i.fas.fa-eye
           |  #{publish.views}   
-        p
+        p(style="margin-left:10%")
           i.far.fa-clock
           | #{timeago}
-
-    p(style="margin-left: 4%;") #{publish.description}
+        
+    
     
     // COMMENTS
-    .card.mt-2
-      .card-header.d-flex.justify-content-between.align-items-center
+    .container.mt-2
+      .d-flex.justify-content-between.align-items-center
         h3 Comentarios   
         button#btn-toggle-comment.btn.btn-info
           i.fa.fa-comments-o
@@ -122,14 +119,14 @@ block content
                 |  #{val.person} - #{val.timestamp}
   else
     
-   .card
-    .card-header.d-flex.justify-content-between.align-items-center
+   
+    .d-flex.justify-content-between.align-items-center
         h2 #{publish.title}    
         button#btn-delete.btn.btn-danger(data-id='#{publish.external_id}')
           i.fa.fa-times
           |  Eliminar 
       .card-body
-        p #{publish.publish}   
+        h3.text-center #{publish.publish}   
       .card-footer.d-flex.justify-content-between.align-items-center
         button#btn-like.btn.btn-success(data-id='#{publish.external_id}')
           i.fas.fa-thumbs-up
@@ -144,8 +141,8 @@ block content
           i.far.fa-clock
           | #{timeago}
     // COMMENTS
-    .card.mt-2
-      .card-header.d-flex.justify-content-between.align-items-center
+    .card.col-md-10.mt-2.ml-auto.mr-auto
+      .d-flex.justify-content-between.align-items-center
         h3 Comentarios   
         button#btn-toggle-comment.btn.btn-info
           i.fa.fa-comments-o

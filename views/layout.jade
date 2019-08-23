@@ -22,24 +22,27 @@ html
     link(rel='stylesheet', href='/assets/js/material-bootstrap-wizard.js')
 
   body
+  // The core Firebase JS SDK is always required and must be listed first
+  script(src='/__/firebase/6.4.0/firebase-app.js')
+  script(src='/__/firebase/init.js')
 
-  .navbar.navbar-translate.navbar-color-on-scroll.fixed-top.navbar-expand-lg.bg-dark(color-on-scroll='100')
+  .navbar.navbar-translate.navbar-color-on-scroll.fixed-top.navbar-expand-lg.bg-dark(style="background-color: rgb(0,0,255); opacity: 0.93;")
     a(href='/')
         img(src='/images/logo.png', alt='imgShare', style="margin-left:50%")
       button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
       #navbarSupportedContent.collapse.navbar-collapse
         ul.navbar-nav.mr-auto(style="margin-left:3%")
-          li.nav-item
-            a.btn.bg-transparent.btn-sm(href='./principal', style="margin-left:0%")
-              .fa.fa-home.fa-lg.text-white
+          li.nav-item( style="margin-left:18px")
+            a.fas.fa-book-open.fa-lg.text-white(href='./principal')
               span.sr-only (current)
-          li.nav-item
-            a.btn.btn-success.btn-sm(href='./perfil', style="margin-left:3%")
-              .fa.fa-user-astronaut
-          li.nav-item
-            a.btn.btn-danger.btn-sm(href='./mensajes', style="margin-left:6%")
-              .fa.fa-id-card.fa-lg.text-white
+          li.nav-item.text-center( style="margin-left:18px")
+            a.fa.fa-user-astronaut.fa-lg.text-white(href='./perfil', style="margin-left:3%") 
+          li.nav-item( style="margin-left:18px")
+            a.fa.fa-comment.fa-lg.text-white(href='./mensajes', style="margin-left:6%")
+          li.nav-item( style="margin-left:18px")
+            a.fa.fa-folder-open.fa-lg.text-white(href='./share', style="margin-left:6%")
+
         form.form-inline.my-2.my-lg-0(style="margin-top:0%; margin-bottom:0%")
           a.btn.btn-success(href='/login') ACCEDE
           a.btn.btn-outline-success(href='/registro') Registrate
@@ -48,7 +51,7 @@ html
         
           //partials
           
-  footer.nav.navbar.navbar-translate.bg-dark.text-white
+  footer.nav.navbar.navbar-translate.bg-dark.text-white(style="margin-bottom:0%")
       .container.p-2
         .row
           .mx-auto.text-center

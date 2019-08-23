@@ -2,26 +2,24 @@ extends ../layout
 
 block content
 
-  //- formulario para crear nueva publicacion
-  .card-header.title
+  .col-md-8.mr-auto.ml-auto.card.wizard-card
+   .card-body
   .col-md-7.mr-auto.ml-auto.card.wizard-card
    .card-body
-            
         form(action='/publicar', method='POST')    
         .card-body
-        .column
-          
+          .form-group( style="margin-left: 0%; margin-bottom: -19.5%; margin-top:0px") 
+            .button.btn.btn-success(href="#", style="margin-left: 100%; margin-bottom: -1%") Enviar
+              .fa.fa-post
+            .button.btn.bg-dark(style="margin-left: 100%;")
+              .fa.fa-upload 
           .form-group
             card-body.form-control.h4d(name='publicacion',style="margin-left: 0%; margin-bottom: 0%;margin-top: 0%", rows='3', placeholder='Escribir mensaje...', required='')
           .row
           .form-group
             textarea.form-control.h4d(name='publicacion',style="margin-left: 0%; margin-bottom: 0%;margin-top: 0%", rows='3', placeholder='Escribir mensaje...', required='')
           .row
-          .form-group( style="margin-left: 0%; margin-bottom: 0%; margin-top:0px") 
-            .button.btn.btn-success(href="#", style="margin-left: 100%; margin-bottom: 0%") Enviar
-              .fa.fa-post
-            .button.btn.bg-dark(style="margin-left: 100%;")
-              .fa.fa-upload 
+          
              
            
               

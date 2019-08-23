@@ -43,6 +43,13 @@ class Roots {
         });
         
     }
+    cloud(req, res) {
+        res.render('cloud', {
+            title: "Share UNL"
+            //error: req.flash("err_cred")
+        });
+        
+    }
    
     chat(req, res) {
         res.render('Usuario/chat', {

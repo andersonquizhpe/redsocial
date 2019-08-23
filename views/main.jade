@@ -11,11 +11,13 @@ block content
         form(action='/publicar', method='POST')       
           .form-group
             textarea.form-control.h4.text-white(name='publicacion',style="margin-left: 0%; margin-bottom: 0%;margin-top: 0%", rows='2', placeholder='¿Algo nuevo?, publícalo', required='')
-          .form-group( style="margin-left: 50%; margin-bottom: 0%") 
-            button.btn.btn-success.submit(href="#",type="submit" style="margin-left: 0%; margin-bottom: 0%") Publicar
-              i.fa.fa-post
-            .button.btn.btn-info.mr-auto.bg-dark(href="#", data-toggle="modal",style="margin-left: 0%; margin-bottom: 0%", data-target="#miModal") Subir un archivo
-              fa.fa-upload
+          .form-group( style="margin-left: 0%; margin-bottom: 0%")
+            .button.btn.btn-info.bg-white.text-dark(href="#", data-toggle="modal",style="margin-left: -0%; margin-bottom: 0%", data-target="#miModal") Subir un archivo
+             .fa.fa-upload
+            button.btn.btn-success.submit(href="#",type="submit" style="margin-right:6%; margin-left: 83%; margin-top: -10%") Publicar
+             .fa.fa-post
+        
+             
              
         
   //- Barra Publicaciones 
@@ -25,39 +27,40 @@ block content
    each val in publish
     .col-md-9.mr-auto.ml-auto.bg-dark
       .card.wizard-card
-        h4.a.nav.nav-tabs.disabled( style="margin-left:50%",tabindex='-1', aria-disabled='true') #{val.timestamp}
+        h4.a.nav.nav-tabs.disabled( style="margin-left:50%",tabindex='-1', aria-disabled='true') #{val.timestamp} 
         //foto de perfil de usuario
         img.img-thumbnail(src="/images/perfil/nikola.jpg", style="width: 120px; margin-left:-6px")
         //nombre de usuario
         h4(style="margin-left: 9px") Nikola Tesla
         //publicacion con archivo
         .form-group(style="margin-top:-150px")
+         card-body
           //titulo de la publicación
           h3.a.nav.nav-tabs.disabled(style="margin-left: 35%; margin-top:2%") #{val.title}
           // descripción de la publicacion 
-          h4.card-tex(style="margin-left: 25%; margin-top:0px; margin-bottom:0px") #{val.description}
+          //h4.card-tex(style="margin-left: 25%; margin-top:0px; margin-bottom:0px") #{val.description}
         .form-group
           //publicación simple
-          h3(style="margin-left: 18%; margin-bottom:10%;") #{val.publish}
+          h3.card-body.col-md-8.mr-auto(style="margin-left: 18%; margin-bottom:10%;") #{val.publish}
         .form-group(style="margin-top:-18%; margin-left:99%")
           //BOTON visitar
-          a.btn.btn-success.bg-dark(href="/publicacion/#{val.external_id}") Visitar
+          a.btn.btn-success.bg-dark(href="/publicacion/#{val.external_id}") Visitar 
           button.btn.btn-success.btn-sm(href="#",method="POST",name="like",style="opacity:30%; width: 1%; margin-left:96%; margin-top:1%")
-            span.likes-count(style="margin-left: 1%;") #{val.likes}
-                .fa.fa-like 
+            span.likes-count(style="margin-left: 1%;") #{val.likes} 
+               .far.fa-thumbs-up
               button.btn.btn-danger.btn-sm(href="#",name="dislike" style="width: 1%; margin-left:96%; margin-top:3px") #{val.dislikes}
-                .fa.fa-dislike
+               .far.fa-thumbs-down
         #video.img-fluid(style='object-fit: cover; width:100%; display: flex;') 
              card-body
               - var extension = val.ext
            .text-center
             case extension
               when '.png'
-                a(href="/publicacion/#{val.external_id}")
+               a(href="/publicacion/#{val.external_id}")
                  img.card.card-body.col-md-8.ml-auto(src="/upload/#{val.filename}", style="margin-top:0%")
               when '.jpg'
                a(href="/publicacion/#{val.external_id}")
-                img.card.card-body.col-md-8.ml-auto.mr-auto(src="/upload/#{val.filename}",style="margin-top:-6%; margin-right:9%")
+                 img.card.card-body.col-md-8.ml-auto.mr-auto(src="/upload/#{val.filename}",style="margin-top:-6%; margin-right:9%")
               when '.jpeg'
                 img.card.card-body.col-md-8.ml-auto(src="/upload/#{val.filename}",style="margin-top:0%; margin-right:9%")
               when '.gif'
@@ -66,42 +69,49 @@ block content
                 video.card.card-body.col-md-8.ml-auto(src="/upload/#{val.filename}",style="margin-top:-6%; margin-right:9%" controls)
               when '.pdf'
                 embed(src="/upload/#{val.filename}" type="application/pdf" width="100%")
-                
+              when '.mp3'
+                audio.col-md-8(style="margin-top:-21%",src="/upload/#{val.filename}", controls, width="100%")
+                 img.col-md-3(style="margin-top:-21%", src="https://i.pinimg.com/originals/97/63/27/9763275118a9e349e540b939992bb930.gif", width="50%")              
+              when '.ogg'
+                video.card-body.col-md-8(src="/upload/#{val.filename}", controls, width="100%", poster="/images/ogg.jpg")
+              when '.pdf'
+                a(href="/upload/#{val.filename}")
+                 img.col-md-1(src="/images/logo.png", width="50%")
+                a(href="/upload/#{val.filename}")
+                  p Descargar #{val.filename}
               when '.txt'
                 a(href="/upload/#{val.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{val.filename}")
-                  p Download #{val.filename}
+                  p Descargar #{val.filename}
               when '.odt'
                 a(href="/upload/#{val.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{val.filename}")
-                  p Download #{val.filename}
+                  p Descargar #{val.filename}
               when '.docx'
                 a(href="/upload/#{val.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{val.filename}")
-                  p Download #{val.filename}
+                  p Descargar #{val.filename}
               when '.doc'
                 a(href="/upload/#{val.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{val.filename}")
-                  p Download #{val.filename}
+                  p Descargar #{val.filename}
               when '.3gp'
                 a(href="/upload/#{val.filename}")
-                  img(src="/images/memoriausb.jpg", width="50%")
+                 img.col-md-1(src="/images/logo.png", width="50%")
                 a(href="/upload/#{val.filename}")
-                  p Download #{val.filename}
-        .card-footer(style="margin-left:90%")
+                  p Descargar #{val.filename}
+              when '.zip'
+                a.btn.btn-primary(href="/upload/#{val.filename}")
+                  p Descargar #{val.filename}
+        .card-footer(style="margin-left:66%")
            .container
              .row
-               .col-md-0 
-                   span#btn-like.a.ml-auto(data-id='#{val.external_id}', style="") 
-                   span.views-count.h4(style="margin-left: 1%;") #{val.views} Visitas 
-                   if val.views == 0
-                     span.views-count(style="margin-left: 1%;")
-                   else
-                     span.views-count(style="margin-left: 1%;") #{val.views}
+               span#btn-like.a.ml-auto(data-id='#{val.external_id}', style="") 
+               span.views-count.h4(style="margin-left: 0%;") #{val.views} Visitas 
             a(href="/upload/#{val.external_id}")
      
         ul.list-group.p-4
@@ -128,6 +138,7 @@ block content
                 .col-md-3.ml-auto
               .form-group
                 button.btn.btn-success(style="margin-right: 0;" type="submit") Publicar 
+              
             
   script(src='/javascripts/jquery.js')
   script(src='/javascripts/scripts.js')

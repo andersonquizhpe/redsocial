@@ -28,6 +28,7 @@ router.get('/principal', publicacion.visualizar);
 //rutas de funciones de usuario
 router.get('/login', roots.getLogin);
 router.get('/registro', roots.getReg);
+router.get('/share', roots.cloud);
 router.post('/registro/save', cuentaC.signUp);
 router.get('/verificar', cuentaC.getVerification);
 router.post('/verificar/update', cuentaC.verificarCuenta);

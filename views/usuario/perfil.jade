@@ -1,12 +1,11 @@
 extends ../layout
 
 block content
- .page-header.header-filter(data-parallax='true', style="background-image: url('https://images2.alphacoders.com/933/933145.jpg');")
-  .main.main-raised
+ .page-header.header-filter(style="margin-top:-3px")
+  .main.main-raised( style="background-image: url('https://images2.alphacoders.com/933/933145.jpg');")
     .profile-content(style="margin-top:120px;")
-
-          .col-md-6.ml-auto.mr-auto.card.bg-dark(style="margin-top:0%;")
-           .profile
+      .col-md-6.ml-auto.mr-auto.card.bg-dark(style="margin-top:0%;")
+       .profile
              .avatar
              .col-md-6.form-group
                 .btn.btn-success.btn-sm.text-white(style="width:12%; margin-left:1%; margin-top:-3px")
@@ -18,23 +17,9 @@ block content
              
             .description
                 p Aquí una descripción del usuario, 4 example: Nikola Tesla fue un inventor, ingeniero mecánico e ingeniero eléctrico de origen serbocroata.​​ Se le conoce sobre todo por sus numerosas invenciones en el campo del electromagnetismo, desarrolladas a finales del siglo XIX y principios del siglo XX
-        .profile-tabs
-                  .col-md-6.mr-auto.ml-auto
-            .profile-tabs
-              .nav.nav-pills.nav-pills-danger.justify-content-center
-                .nav-item
-                  .nav-link.active
-                    fa.fa-pictures Mis Fotos
-                .nav-item
-                  .nav-link
-                    fa.fa-love Fotos cool
-                .nav-item
-                  .nav-link
-                    fa.fa-book Favoritas
         .row
          .col-md-6.ml-auto.mr-auto
-          .tab-content.tab-space
-          .tab-pane.text-center.gallery(id="yo")
+          extends ../cloud
         
     script(src='/assets/js/core/jquery.min.js', type='text/javascript')
     script(src='/assets/js/core/popper.min.js', type='text/javascript')
