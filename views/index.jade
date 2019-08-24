@@ -4,7 +4,14 @@ block content
  .page-header.header-filter(data-parallax='true', style="background-image: url('https://images2.alphacoders.com/933/933145.jpg');")
     .main.main-raised(style="margin-left: 30%; width:30%")
        .card-body.ml-auto
-            h3 Bienvenido a la comunidad virtual mas grande de la UNL!
+         if typeof msg != 'undefined'
+            if typeof msg.error != 'undefined' && msg.error.length > 0
+              .form-group
+                .alert.alert-danger(style="font-size: 15px;") #{msg.error}
+            if typeof msg.info != 'undefined' && msg.info.length > 0
+              .form-group
+                .alert.alert-info(style="font-size: 15px;") #{msg.info}
+         h3 Bienvenido a la comunidad virtual mas grande de la UNL!
         .col-md-9.ml-auto
                 .description.text-center(style="margin-bottom:0%; margin-left:81%;margin-rigth:100%")
                  .form-group(style:"margin-top:100%")

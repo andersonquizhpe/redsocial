@@ -18,7 +18,9 @@ class Roots {
      */
     getLogin(req, res) {
         res.render('fragmentos/login', {
-            title: 'Universidad Nacional de Loja'
+            title: 'Universidad Nacional de Loja',
+            msg: {error: req.flash('error'), info: req.flash('info')},
+            sesion: false
             //error: req.flash("err_cred")
         });
     }
@@ -28,12 +30,14 @@ class Roots {
      * @apiGroup Roots
      *
      * @apiParam {req} req el objeto de peticion
-     * @apiParam {res} res Devuelve la pagina para ingresar 
+     * @apiParam {res} res Devuelve la pag para ingresar 
      * 
      */
     getReg(req, res) {
         res.render('fragmentos/registro', {
-            title: 'Universidad Nacional de Loja'
+            title: 'Universidad Nacional de Loja',
+            msg: {error: req.flash('error'), info: req.flash('info')},
+            sesion: false
             //error: req.flash("err_cred")
         });
     }
@@ -79,15 +83,8 @@ class Roots {
     }
     main(req, res) {
         res.render('main', {
-            title: "Muro"
-            //error: req.flash("err_cred")
-        });
-    }
-
-    getPrincipal(req, res) {
-        res.render('index', {
-            title: 'Universidad Nacional de Loja',
-            fragmento: 'fragmentos/login'
+            title: "Muro",
+            sesion: true
             //error: req.flash("err_cred")
         });
     }
@@ -102,8 +99,8 @@ class Roots {
      * 
      */
     cerrar(req, res) {
-        req.session.destroy();
-        res.redirect("/");
+        req.logout();
+        res.redirect("/login");
     }
 
 

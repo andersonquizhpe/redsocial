@@ -1,5 +1,5 @@
 module.exports = {
   database: {
-    URI: 'mongodb://localhost/proyecto'
+    URI: 'mongodb://localhost/redpassport'
   }
 };

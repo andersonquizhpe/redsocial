@@ -32,6 +32,7 @@ html
       button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
       #navbarSupportedContent.collapse.navbar-collapse
+      if sesion === true
         ul.navbar-nav.mr-auto(style="margin-left:3%")
           li.nav-item( style="margin-left:18px")
             a.fas.fa-book-open.fa-lg.text-white(href='./principal')
@@ -42,10 +43,14 @@ html
             a.fa.fa-comment.fa-lg.text-white(href='./mensajes', style="margin-left:6%")
           li.nav-item( style="margin-left:18px")
             a.fa.fa-folder-open.fa-lg.text-white(href='./share', style="margin-left:6%")
-
-        form.form-inline.my-2.my-lg-0(style="margin-top:0%; margin-bottom:0%")
-          a.btn.btn-success(href='/login') ACCEDE
-          a.btn.btn-outline-success(href='/registro') Registrate
+          li.nav-item( style="margin-left:18px")
+            a.fa.fa-folder-open.fa-lg.text-white(href='/logout', style="margin-left:6%")
+          
+         
+      else
+          form.form-inline.my-2.my-lg-0(style="margin-top:0%; margin-bottom:0%; margin-left:90%")
+            a.btn.btn-success(href='/login') ACCEDE
+            a.btn.btn-outline-success(href='/registro') Registrate
 
    block content
         

@@ -9,6 +9,13 @@ block content
           i.fa.fa-lg.fa-fw.fa-user
           span Registro
         .login-form
+          if typeof msg != 'undefined'
+            if typeof msg.error != 'undefined' && msg.error.length > 0
+              .form-group
+                .alert.alert-danger(style="font-size: 15px;") #{msg.error}
+            if typeof msg.info != 'undefined' && msg.info.length > 0
+              .form-group
+                .alert.alert-info(style="font-size: 15px;") #{msg.info}
           form.login-form(method='post', action='/registro/save')
             .form-group
               label.control-label.h4 Nombres

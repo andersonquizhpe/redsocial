@@ -8,7 +8,14 @@ var PersonaSchema = Schema({
     nombre: String,
     area: String,
     carrera: String,
-    foto: String
+    foto: String,
+    correo: String,
+    secretToken: String,
+    clave: String,
+    activo: {
+        type: Boolean,
+        default: false
+    }
 }, false);
 
 module.exports = mongoose.model("Persona", PersonaSchema);

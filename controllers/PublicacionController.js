@@ -7,6 +7,7 @@ var md5 = require('md5');
 var moment = require('moment');
 var Publicacion = require('../models/publicacion');
 var Comentario = require('../models/comentario');
+var Cuenta = require('../models/persona');
 
 class PublicacionController {
     /**
@@ -21,23 +22,26 @@ class PublicacionController {
      */
     guardar(req, res) {
 
-		new Publicacion({
-			id: new mongoose.Types.ObjectId(),
-                    
-            publish: req.body.publicacion,
-					
-            external_id: uuidv4()
-        }).save(function (err, newPublicacion) {
-             
-            if(err) {
-		    req.flash('error', 'No se pudo subir su publicacion!');
-		    res.send(err);
-            }else if(newPublicacion) {
-		    req.flash('info', 'Publicacion subida exitosamente!');
-	            res.redirect('/principal');           
-			}
-                    
-        });
+		Persona.findOne({}, (err, person)=>{
+      new Publicacion({
+        id: new mongoose.Types.ObjectId(),
+                      
+              publish: req.body.publicacion,
+              
+              external_id: uuidv4(),
+              persona_id: person.id
+          }).save(function (err, newPublicacion) {
+               
+              if(err) {
+          req.flash('error', 'No se pudo subir su publicacion!');
+          res.send(err);
+              }else if(newPublicacion) {
+          req.flash('info', 'Publicacion subida exitosamente!');
+                res.redirect('/principal');           
+        }
+                      
+          });
+    });
     }
     /**
      * 
@@ -59,8 +63,8 @@ class PublicacionController {
 
 		new Publicacion({
 			id: new mongoose.Types.ObjectId(),
-                    
-            title: req.body.title,
+            
+      title: req.body.title,
 			description: req.body.description,
 			filename: imgUrl + ext,
 			ext: ext,
@@ -89,7 +93,11 @@ class PublicacionController {
     visualizar(req, res) {
 		
 		Publicacion.find({}, (error, publish) => {
-			res.render('main', {publish, title: 'Uneleate', msg: {error: req.flash('error'), info: req.flash('info')}});
+      res.render('main', {publish, title: 'Uneleate', 
+      sesion: true,
+        msg: {error: req.flash('error'), info: req.flash('info')},
+        
+      });
 		}).sort({ timestamp: -1 });
     }
     /**
@@ -102,6 +110,16 @@ class PublicacionController {
      * @apiParam {res} res Devuelve la pagina y la publicacion a la cual queremos acceder
      * 
      */
+    verPersona(req, res) {
+      var session = req.user;
+      Cuenta.findOne({}, (error, logeado) => {
+        if(logeado){
+          console.log("Persona identificada" + logeado);
+        }else{
+          res.redirect('/principal');
+        }
+      });
+      }
     verPublicacion(req, res) {
 		Publicacion.findOne({external_id: req.params.external}, (error, publish) => {
 			if(publish){
@@ -130,7 +148,9 @@ class PublicacionController {
 				res.redirect('/principal');
 			}
     };*/
-	
+	getVis(req, res){
+    Persona.findOne();
+  }
 	/**
      * 
      * @api {post} /like/:external Dar like a las publicaciones
@@ -141,18 +161,6 @@ class PublicacionController {
      * @apiParam {res} res Devuelve la pagina y el like dado por el usuario
      * 
      */
-    like(req, res) {
-		Publicacion.findOne({id: req.body.external}, function (err, publish){
-		  publish.likes = publish.likes + 1;
-		  publish.save(function (err, publish) {     
-            if(err) {
-				res.send(err);
-            }else if(publish) {
-			    res.redirect('/principal');           
-			}
-		  });       
-        });
-    }
     
     like1(req, res) {
 		Publicacion.findOne({external_id: req.params.external}, function (err, publish){

@@ -3,8 +3,8 @@ require('dotenv').config();
 var nodemailer = require('nodemailer');
 var mongoose = require('mongoose');
 const uuidv4 = require('uuid/v4');
-var Persona = require('../models/persona');
-var Cuenta = require('../models/cuenta');
+var Usuario = require('../models/persona');
+//var Usuario = require('../models/cuenta');
 var randomstring = require('randomstring');
 var smtpTransport = require('nodemailer-smtp-transport');
 var md5 = require('md5');
@@ -21,42 +21,39 @@ class cuentaController {
      * 
      */
     signUp(req, res) {
-        Cuenta.findOne({ 'correo': req.body.correo }, (err, person) => {
+        Usuario.findOne({ 'correo': req.body.correo }, (err, person) => {
             if (err) {
+                req.flash('error', 'Ha ocurrido un error en el servidor');
                 res.redirect('/');
             } else if (person) {
-                //req.flash('error', 'El correo ya fue usado con anterioridad')
+                req.flash('error', 'El correo ya fue usado con anterioridad')
                 res.redirect('/registro');
             } else {
-                //const hash = Cuenta.hashPassword(req.body.clave);
+                //const hash = Usuario.hashPassword(req.body.clave);
                 const secretToken = randomstring.generate();
                 console.log('secretToken', secretToken);
-                new Persona({
+                new Usuario({
                     id: new mongoose.Types.ObjectId(),
                     external_id: uuidv4(),
                     apellido: req.body.apellido,
                     nombre: req.body.nombre,
                     area: req.body.area,
-                    carrera: req.body.carrera
+                    carrera: req.body.carrera,
+                    correo: req.body.correo,
+                    clave: req.body.clave,
+                    secretToken: secretToken,
+                    active: false
                 }).save(function (err, newP) {
                     if (err) {
+                        req.flash('error', 'Ha ocurrido un error');
                         res.redirect('/registro');
                         console.log(err);
                     } else if (newP) {
-                        const newPersona=  newP;
+                        const newPersona = newP;
                         newPersona.foto = md5(newPersona.nombre);
-                        newPersona.save();
-                        console.log(newP);
-                        new Cuenta({
-                            id: new mongoose.Types.ObjectId(),
-                            external_id: uuidv4(),
-                            correo: req.body.correo,
-                            clave: req.body.clave,
-                            persona: newP.id,
-                            secretToken: secretToken,
-                            active: false
-                        }).save(function (err, newC) {
+                        newPersona.save(function (err, newC) {
                             if (err) {
+                                req.flash('error', 'Ha ocurrido un error al registrar tu cuenta');
                                 res.redirect('/registro');
                                 console.log(err);
                             } else {
@@ -65,7 +62,7 @@ class cuentaController {
                                 <br/>
                                 Gracias por registrarte!
                                 <br/><br/>
-                                Por favor para verificar tu cuenta para iniciar sesion:
+                                Por favor para verificar tu cuenta ingresa al siguiente enlace:
                                 <br/>
                                 <br/>
                                 En el siguiente link:
@@ -92,11 +89,14 @@ class cuentaController {
                                         console.log(err);
                                     } else {
                                         console.log('mensaje enviado con exito');
+                                        req.flash('info', 'Dirigete a tu correo y verifica tu cuenta');
                                         res.redirect('/login');
                                     }
                                 });
                             }
                         });
+                        console.log(newP);
+
                     }
                 });
             }
@@ -113,16 +113,16 @@ class cuentaController {
      * 
      */
     verificarCuenta(req, res) {
-        Cuenta.findOne({'secretToken': req.params.token}, (err, user)=>{
+        Usuario.findOne({ 'secretToken': req.params.token }, (err, user) => {
             console.log(user);
-            if(!user){
-                //req.flash('error', 'Usuario no encontrado.');
+            if (!user) {
+                req.flash('error', 'Codigo no valido');
                 res.redirect('/registro');
-            }else{
+            } else {
                 user.activo = true;
-                user.secretToken= '';
+                user.secretToken = '';
                 user.save();
-                //req.flash('info', 'Se ha verificado tu cuenta. Ahora puedes inicar sesion');
+                req.flash('info', 'Se ha verificado tu cuenta. Ahora puedes inicar sesion');
                 res.redirect('/login');
             }
         });

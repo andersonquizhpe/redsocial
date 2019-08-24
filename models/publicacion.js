@@ -12,7 +12,8 @@ var PublicacionSchema = Schema({
     likes: { type: Number, default: 0 },
     dislikes: { type: Number, default: 0 },
     publish: String,
-    timestamp: { type: Date, default: Date.now }    
+    timestamp: { type: Date, default: Date.now },
+    persona_id: String    
 }, false);
 
 module.exports = mongoose.model("Publicacion", PublicacionSchema);
