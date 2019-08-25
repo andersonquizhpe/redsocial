@@ -134,7 +134,7 @@ class PublicacionController {
 			}
 		});
     }
-    /*
+	
     comment = async(req, res) => {
 		
 		 const publicacion = await Publicacion.findOne({external_id: req.params.external});
@@ -147,7 +147,7 @@ class PublicacionController {
 			}else{
 				res.redirect('/principal');
 			}
-    };*/
+    };
 	getVis(req, res){
     Persona.findOne();
   }
