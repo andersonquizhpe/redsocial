@@ -16,7 +16,7 @@ router.get('/', function (req, res, next) {
 router.post('/like/:external', publicacion.like1);
 router.get('/publicacion/:external', publicacion.verPublicacion);
 router.get('/persona', publicacion.verPersona);
-//router.post('/publicacion/:external/comment', publicacion.comment);
+router.post('/publicacion/:external/comment', publicacion.comment);
 router.post('/publicacion/:external', publicacion.eliminar);
 router.post('/publicar', publicacion.guardar);
 router.get('/perfil', roots.perfil);
