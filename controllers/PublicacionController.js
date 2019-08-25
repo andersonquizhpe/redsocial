@@ -22,14 +22,14 @@ class PublicacionController {
      */
     guardar(req, res) {
 
-		Persona.findOne({}, (err, person)=>{
+		//Persona.findOne({}, (err, person)=>{
       new Publicacion({
         id: new mongoose.Types.ObjectId(),
                       
               publish: req.body.publicacion,
               
               external_id: uuidv4(),
-              persona_id: person.id
+              //persona_id: person.id
           }).save(function (err, newPublicacion) {
                
               if(err) {
@@ -41,7 +41,7 @@ class PublicacionController {
         }
                       
           });
-    });
+    //});
     }
     /**
      * 
