@@ -135,9 +135,19 @@ class PublicacionController {
 		});
     }
 	
-    comment = async(req, res) => {
+    comment (req, res) {
+      Publicacion.findOne({external_id: req.params.external},(err, publica)=>{
+        if(publica){
+          const newcomentario = new Comentario(req.body);
+          newcomentario.publish_id = publica.external_id;
+          newcomentario.save();
+          res.redirect('/publicacion/'+ publica.external_id);
+        }else{
+          res.redirect('/principal');
+        }
+      });
 		
-		 const publicacion = await Publicacion.findOne({external_id: req.params.external});
+		 /*const publicacion = await Publicacion.findOne({external_id: req.params.external});
 			if(publicacion){
 				const newcomentario = new Comentario(req.body);
 				newcomentario.publish_id = publicacion.external_id;
@@ -146,7 +156,7 @@ class PublicacionController {
 				res.redirect('/publicacion/' + publicacion.external_id);
 			}else{
 				res.redirect('/principal');
-			}
+			}*/
     };
 	getVis(req, res){
     Persona.findOne();
